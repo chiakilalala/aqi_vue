@@ -1,0 +1,233 @@
+<template>
+<div>
+  <Loading v-if="isLoading"/>
+  <div class="container py-5">
+    <section class="row">
+      <div class="col-xl-4">
+        <h1 class="font-weight-bold bigTitle">空氣品質指標 (AQI)</h1>
+        <div class="citySelect-wrap">
+          <select
+            name="city"
+            id="citySelect"
+            class="citySelect"
+            v-model="countySelected"
+            @change="countyChange(countySelected)"
+          >
+            <option value="init" :disabled="countySelected !== 'init'">請選擇地區</option>
+            <option :value="item" v-for="item in county" :key='item'>{{ item }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-xl-8 mt-xl-0 mt-3">
+        <div class="row aqi-status-wrap no-gutters">
+          <div class="col-md-2 col-6 aqi-status-item">
+            <div class="aqi-status-value status-color-level1"><span>0~50</span></div>
+            <div class="aqi-status-caption">良好</div>
+          </div>
+          <div class="col-md-2 col-6 aqi-status-item">
+            <div class="aqi-status-value status-color-level2"><span>51~100</span></div>
+            <div class="aqi-status-caption">普通</div>
+          </div>
+          <div class="col-md-2 col-6 aqi-status-item">
+            <div class="aqi-status-value status-color-level3"><span>101~150</span></div>
+            <div class="aqi-status-caption">對敏感族群 不健康</div>
+          </div>
+          <div class="col-md-2 col-6 aqi-status-item">
+            <div class="aqi-status-value status-color-level4"><span>151~200</span></div>
+            <div class="aqi-status-caption">對所有族群 不健康</div>
+          </div>
+          <div class="col-md-2 col-6 aqi-status-item">
+            <div class="aqi-status-value status-color-level5"><span>201~300</span></div>
+            <div class="aqi-status-caption">非常不健康</div>
+          </div>
+          <div class="col-md-2 col-6 aqi-status-item">
+            <div class="aqi-status-value status-color-level6"><span>301~400</span></div>
+            <div class="aqi-status-caption">危害</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="separate-wrap my-xl-5 mb-md-2 my-5 d-md-flex d-none">
+      <h2 class="font-weight-bold">{{ countySelected }}</h2>
+      <div class="separate-line-wrap">
+        <div class="separate-line"></div>
+      </div>
+      <div class="update-wrap font-weight-bold d-flex align-items-center">
+        <span>{{ fillterUpdateTime }}</span><span class="ml-3">update</span>
+      </div>
+    </div>
+    <!-- mobole separate -->
+    <div class="separate-wrap my-xl-5 my-2 d-md-none d-block text-center">
+      <h2 class="font-weight-bold">{{ countySelected }}</h2>
+      <div class="update-wrap font-weight-bold">
+        {{ fillterUpdateTime }}<span class="ml-3">update</span>
+      </div>
+    </div>
+    <section class="row">
+      <div class="col-xl-4 col-md-6">
+        <div class="row no-gutters district-selected">
+          <div class="col-7 districtName">
+           {{ siteSelectedData.SiteName }}
+          </div>
+          <div class="col-5 districtAqi" :class="siteSelectedData.Status | juageColor">
+            {{ siteSelectedData.AQI }}
+          </div>
+          <div class="col-12 districtData ">
+            <ul>
+              <li class="data-items">
+                <b>臭氧</b>
+                <span class="h6 ml-2">O3 (ppb)</span>
+                <b class="ml-auto">{{ siteSelectedData.O3 }}</b>
+              </li>
+              <li class="data-items">
+                <b>懸浮微粒</b>
+                <span class="h6 ml-2">PM10 (μg/m³)</span>
+                <b class="ml-auto">{{ siteSelectedData.PM10  }}</b>
+              </li>
+              <li class="data-items">
+                <b>細懸浮微粒</b>
+                <span class="h6 ml-2">PM2.5 (μg/m³)</span>
+                <b class="ml-auto">{{ siteSelectedData['PM2.5'] }}</b>
+              </li>
+              <li class="data-items">
+                <b>一氧化碳</b>
+                <span class="h6 ml-2">CO (ppm)</span>
+                <b class="ml-auto">{{ siteSelectedData.CO  }}</b>
+              </li>
+              <li class="data-items">
+                <b>二氧化硫</b>
+                <span class="h6 ml-2">SO2 (ppb)</span>
+                <b class="ml-auto">{{ siteSelectedData.SO2  }}</b>
+              </li>
+              <li class="data-items">
+                <b>二氧化氮</b>
+                <span class="h6 ml-2">NO2 (ppb)</span>
+                <b class="ml-auto">{{ siteSelectedData.NO2  }}</b>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-8 col-md-6 mt-md-0 mt-5">
+        <div class="row">
+          <div
+            class="col-xl-6 mb-5"
+            v-for='item in filterCountySelected'
+            :key='item.SiteName'
+            @click='selectSiteName(item)'
+          >
+            <div class="row no-gutters district-items">
+              <div class="col-7 districtName">
+                {{ item.SiteName }}
+              </div>
+              <div class="col-5 districtAqi" :class="item.Status | juageColor">
+                {{ item.AQI }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <Footer/>
+</div>
+</template>
+
+<script>
+import Loading from '../components/Loading.vue';
+import Footer from './layout/Footer.vue';
+
+export default {
+  components: {
+    Loading,
+    Footer,
+  },
+  computed: {
+    filterCountySelected() {
+      const vm = this;
+      return vm.data.filter(item => item.County === vm.countySelected);
+    },
+    fillterUpdateTime() {
+      const vm = this;
+      const selectedCountyData = vm.data.filter(item => item.County === vm.countySelected);
+      let time = '';
+      selectedCountyData.forEach((item) => {
+        if (item.PublishTime && !time) {
+          time = item.PublishTime;
+        }
+      });
+      return time;
+    },
+  },
+  data() {
+    return {
+      data: [],
+      county: [],
+      countySelected: '高雄市',
+      siteSelectedData: {},
+      isLoading: true,
+    };
+  },
+  methods: {
+    getData() {
+      const cors = 'https://cors-anywhere.herokuapp.com/';
+      const url = 'http://opendata.epa.gov.tw/webapi/Data/REWIQA/?$orderby=SiteName&$skip=0&$top=1000&format=json';
+      const corsUrl = cors + url;
+      const vm = this;
+      fetch(corsUrl)
+        .then((response) => {
+          if (!response.ok) throw new Error(response.statusText);
+          return response.json();
+        })
+        .then((jsonData) => {
+          if (jsonData) {
+            vm.data = jsonData;
+            // console.log('所有資料', vm.data);
+            vm.data.forEach((item) => {
+              if (vm.county.indexOf(item.County) === -1) {
+                vm.county.push(item.County);
+              }
+            });
+            vm.county.sort((a, b) => (a < b ? 1 : -1));
+            // console.log('城市', vm.county);
+            const countySelectedData = vm.data.filter(item => item.County === vm.countySelected);
+            [vm.siteSelectedData] = countySelectedData;
+            // console.log(vm.siteSelectedData);
+            vm.isLoading = false;
+          }
+        })
+        .catch(err => console.log(err));
+    },
+    selectSiteName(selectedData) {
+      const vm = this;
+      vm.siteSelectedData = selectedData;
+      // console.log(vm.siteSelectedData);
+    },
+    countyChange(countyChange) {
+      const vm = this;
+      const countySelectedData = vm.data.filter(item => item.County === countyChange);
+      [vm.siteSelectedData] = countySelectedData;
+    },
+  },
+  created() {
+    const vm = this;
+    vm.getData();
+  },
+};
+</script>
+
+
+<template>
+  <div
+    class="text-white"
+    style="background-color:black"
+  >
+    <div class="d-md-flex d-none justify-content-between align-items-center container py-1">
+      <span>資料來源 : 行政院環境保護署</span><span>Copyright © 2019 HaoYuan.All rights reserved.</span>
+    </div>
+    <div class="d-md-none text-center py-2">
+      <div>資料來源 : 行政院環境保護署</div>
+      <div>Copyright © 2019 HaoYuan.All rights reserved.</div>
+    </div>
+  </div>
+</template>

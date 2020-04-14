@@ -1,0 +1,36 @@
+var app =  new Vue({
+  
+ el:'#app',
+ data:[], //放資料
+ county:[] //城市
+ selectData:{},
+  countySelected :'高雄市'
+
+
+})
+1. 先幫雙向綁定
+
+http://opendata.epa.gov.tw/webapi/Data/REWIQA/?$orderby=SiteName&$skip=0&$top=1000&format=json
+
+
+var app = new Vue({
+	  el:'#app',
+	  data:{
+			data:[],
+			city:[],
+			citySelected:'高雄市'
+		},
+	  methods:{
+			getData(){
+			const url ="http://opendata.epa.gov.tw/webapi/Data/REWIQA/?$orderby=SiteName&$skip=0&$top=1000&format=json";
+			axios.get(url).(res=>{
+						this.data =res.data
+			  })
+			}
+
+		}
+	
+	  
+	
+	
+})

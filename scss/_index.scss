@@ -1,0 +1,281 @@
+            $bg-color:#f0f0f0;
+            $color_panel:#e0e5ec;
+            $color_search:#DFE4EA;
+            $color_title:#21265D;
+            $color_scroll:#63A1CB;
+            $scroll_bg:#F5F5F5;
+            $select_color:#f5f6f7;
+            $boxshadow:#f2f2f2;
+            $text-white:#e2e2e2;
+            $bg_ornage:#eb7b55;
+            $primary-color: #4A90E2;
+            $secondary-color: #00408B;
+            $warning-color: #D0021B;
+            $highlight-color: #F5A623;
+            $task-bg: #f2f2f2;
+            $task-highlight-bg: #FFF2DC;
+            html,
+            body {}
+            
+             ::-webkit-scrollbar-track {
+                background-color: $scroll_bg;
+            }
+            
+             ::-webkit-scrollbar {
+                width: 10px;
+                background-color: $scroll_bg;
+            }
+            
+             ::-webkit-scrollbar-thumb {
+                border-radius: 10px;
+                background-color: $color_scroll;
+            }
+            /* this targets the default scrollbar (compulsory) */
+            
+            .e-img {
+                max-width: 100%;
+                height: auto;
+            }
+            
+            .main-Title {
+                font-weight: $font-weight-bold;
+                font-size: pxTorem(35px);
+                line-height: 1.2;
+                margin-bottom: .5rem;
+            }
+            
+            body {
+                margin: 0;
+                font-family: 'Noto Sans TC';
+                font-size: 14px;
+                line-height: 1.2;
+                background-color: $bg-color;
+            }
+            
+            .citySelect-outer {
+                position: relative;
+                &:after {
+                    content: " ";
+                    position: absolute;
+                    border-width: 0 4px 7px 4px;
+                    border-color: transparent transparent #000 transparent;
+                    border-style: solid;
+                    right: 15px;
+                    top: 18px;
+                }
+                &::before {
+                    content: '';
+                    width: 0;
+                    height: 0;
+                    position: absolute;
+                    border-width: 7px 4px 0 4px;
+                    border-color: #000 transparent transparent transparent;
+                    border-style: solid;
+                    right: 15px;
+                    bottom: 18px;
+                }
+            }
+            
+            .citySelect {
+                appearance: none;
+                @include size(100%, 52px);
+                border: 2px solid #000;
+                font-weight: $font-weight-bold;
+                padding-left: pxTorem(14px);
+            }
+            
+            .aqi-wrap:first-child {
+                .status-box,
+                .status-caption {
+                    border-left: 2px solid #000;
+                }
+            }
+            
+            .aqi-wrap {
+                background-color: #fff;
+                height: 100%;
+                .status-box {
+                    border: 1.5px solid;
+                    border-left: none;
+                    border-bottom: none;
+                }
+                .status-caption {
+                    border: 1.5px solid;
+                    border-left: none;
+                    padding: 0 15px;
+                }
+            }
+            
+            .status-box,
+            .status-caption {
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 50%;
+                text-align: center;
+                font-weight: 700;
+            }
+            
+            //判斷顏色  空氣狀態//
+            .status-good-level {
+                background-color: #95f084;
+            }
+            
+            .status-normal-level {
+                background-color: #ffe695;
+            }
+            
+            .status-sensitivebad-level {
+                background-color: #ffaf6a;
+            }
+            
+            .status-allBad-level {
+                background-color: #ff5757;
+            }
+            
+            .status-server-level {
+                background-color: #9777ff;
+            }
+            
+            .status-kill-level {
+                background-color: #ad1774;
+            }
+            
+            //目標地點
+            .separate-wrap {
+                display: flex;
+                justify-content: space-between;
+            }
+            
+            .separate-line-wrap {
+                display: flex;
+                align-items: center;
+                flex: auto;
+                padding: 0 pxTorem(20px);
+            }
+            
+            .separate-line {
+                border-top: 2.75px dotted;
+                width: 100%;
+            }
+            
+            .update-wrap {
+                font-weight: $font-weight-bold;
+                font-size: pxTorem(16px);
+            }
+            
+            //
+            .city-name {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .city-name,
+            .aqi-number {
+                font-size: pxTorem(35px);
+                font-weight: 700;
+                border: 3px solid;
+                text-align: center;
+            }
+            
+            .aqi-number {
+                border-left: 0;
+                padding: 1rem 0;
+            }
+            
+            // city-selected
+            .city-selected {
+                background-color: #fff;
+            }
+            
+            .cityData {
+                border: 3px solid;
+                border-top: 0;
+                ul {
+                    list-style: none;
+                    padding-left: 0;
+                    padding: 15px;
+                }
+                .data-item {
+                    padding: pxTorem(15px);
+                    border-bottom: 1px solid #000;
+                    font-size: pxTorem(16px);
+                    display: flex;
+                    align-items: flex-end;
+                    list-style: none;
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                    b {
+                        font-size: pxTorem(20px);
+                    }
+                }
+            }
+            
+            select:focus {
+                outline: none;
+            }
+            
+            .l-header {
+                display: flex;
+                justify-content: center;
+                height: 76px;
+                background: $primary-color;
+                padding: 0 10%;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .m-menu {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: stretch;
+                width: 100%;
+                &-item {
+                    flex: 1 1 auto;
+                    display: flex;
+                    position: relative;
+                    align-items: center;
+                    justify-content: center;
+                    color: $secondary-color;
+                    font-size: 24px;
+                    &.slelected {
+                        color: #fff;
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            width: 100%;
+                            bottom: 0;
+                            left: 0;
+                            border-bottom: $secondary-color solid 5px;
+                        }
+                    }
+                    &:hover {
+                        color: #fff;
+                    }
+                }
+            }
+            
+            // --------------------------
+            // todo-list
+            input[type='checkbox'] {
+                visibility: hidden;
+            }
+            
+            @media (min-width: 1200px) {
+                .container {
+                    max-width: 1170px;
+                }
+            }
+            
+            @media only screen and (max-width: 767px) {
+                .status-box,
+                .status-caption {
+                    padding: 10px 0;
+                    height: pxTorem(50px)
+                }
+            }

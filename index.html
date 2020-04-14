@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/all.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container py-4">
+            <section class="row">
+                <div class="col-xl-4">
+                    <h1 class="main-Title">空氣品質指標 (AQI)</h1>
+                    <dic class="citySelect-outer">
+                        <select class="citySelect">
+                            <option value="init" disabled="disabled">請選擇地區</option>
+                            <option  value="高雄市">高雄市</option>
+                        </select>
+                    </dic>
+
+                </div>
+                <!--  -->
+                <div class="col-xl-8 mt-xl-0 mt-3">
+                    <div class="row aqi-wrap no-gutters">
+                        <div class="col-md-2  col-6">
+                            <div class="status-box status-good-level">
+                                <span>1</span>
+                            </div>
+                            <div class="status-caption">良好
+
+                            </div>
+                        </div>
+                        <div class="col-md-2  col-6">
+                            <div class="status-box status-normal-level">
+                                <span>1</span>
+                            </div>
+                            <div class="status-caption">普通
+
+                            </div>
+                        </div>
+                        <div class="col-md-2  col-6">
+                            <div class="status-box status-sensitivebad-level">
+                                <span>1</span>
+                            </div>
+                            <div class="status-caption">對敏感族群 不健康
+
+                            </div>
+                        </div>
+                        <div class="col-md-2  col-6">
+                            <div class="status-box status-allBad-level">
+                                <span>1</span>
+                            </div>
+                            <div class="status-caption">對所有族群 不健康
+
+                            </div>
+                        </div>
+                        <div class="col-md-2  col-6">
+                            <div class="status-box status-server-level">
+                                <span>1</span>
+                            </div>
+                            <div class="status-caption ">非常不健康
+
+                            </div>
+                        </div>
+                        <div class="col-md-2  col-6">
+                            <div class="status-box status-kill-level">
+                                <span>1</span>
+                            </div>
+                            <div class="status-caption">危害
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- 目標地點 -->
+            <div class="separate-wrap my-xl-5 mb-md-2 my-5 d-md-flex d-none">
+                <h2 class="main-Title">高雄市</h2>
+                <div class="separate-line-wrap">
+                    <div class="separate-line"></div>
+                </div>
+                <div class="update-wrap font-weight-bold d-flex align-items-center">
+                    <span>2020-04-14 14:00
+</span><span class="ml-3">update</span>
+                </div>
+            </div>
+            <!-- mobile 版本 -->
+            <!-- mobole separate -->
+            <div class="separate-wrap my-xl-5 my-2 d-md-none d-block text-center">
+                <h2 class="main-Title">高雄市</h2>
+                <div class="update-wrap font-weight-bold">
+                    2020-04-14 14:00<span class="ml-3">update</span>
+                </div>
+            </div>
+            <!-- data 資料 -->
+            <section class="row">
+                <div class="col-xl-4 col-md-6">
+                    <div class="row no-gutters city-selected ">
+                        <div class="col-7 city-name">
+                            大寮
+                        </div>
+                        <div class="col-5 aqi-number status-normal-level">
+                            89
+
+                        </div>
+                        <div class="col-12 cityData">
+                            <ul>
+                                <li class="data-item">
+                                    <b>臭氧
+                                </b>
+                                    <span class="ml-2 h6">O3 (ppb)</span>
+                                    <b class="ml-auto">91</b>
+                                </li>
+                                <li class="data-item">
+                                    <b>
+                                    懸浮微粒
+                                </b>
+                                    <span class="ml-2 h6">PM10 (μg/m³)</span>
+                                    <b class="ml-auto">57</b>
+                                </li>
+                                <li class="data-item">
+                                    <b>
+                                        細懸浮微粒
+                                </b>
+                                    <span class="ml-2 h6">PM2.5 (μg/m³)</span>
+                                    <b class="ml-auto">57</b>
+                                </li>
+                                <li class="data-item">
+                                    <b>一氧化碳
+                                </b>
+                                    <span class="ml-2 h6">CO (ppm)</span>
+                                    <b class="ml-auto">57</b>
+                                </li>
+                                <li class="data-item">
+                                    <b>
+                                    二氧化硫
+                                </b>
+                                    <span class="ml-2 h6">SO2 (ppb)</span>
+                                    <b class="ml-auto">57</b>
+                                </li>
+                                <li class="data-item">
+                                    <b>
+                                    二氧化氮
+                                </b>
+                                    <span class="ml-2 h6">NO2 (ppb)</span>
+                                    <b class="ml-auto">57</b>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- 細部items -->
+                <div class="col-xl-8 col-md-6 mt-md-0 mt-5">
+                    <div class="row">
+
+                        <div class="col-xl-6 mb-5">
+                            <div class="row no-gutters city-items">
+                                <div class="col-7 city-name status-allBad-level">
+                                    大金
+                                </div>
+                                <div class="col-5 aqi-number">
+                                    22
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 mb-5">
+                            <div class="row no-gutters city-items">
+                                <div class="col-7 city-name status-allBad-level">
+                                    大金
+                                </div>
+                                <div class="col-5 aqi-number">
+                                    22
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 mb-5">
+                            <div class="row no-gutters city-items">
+                                <div class="col-7 city-name status-allBad-level">
+                                    大金
+                                </div>
+                                <div class="col-5 aqi-number">
+                                    22
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 mb-5">
+                            <div class="row no-gutters city-items">
+                                <div class="col-7 city-name status-allBad-level">
+                                    大金
+                                </div>
+                                <div class="col-5 aqi-number">
+                                    22
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 mb-5">
+                            <div class="row no-gutters city-items">
+                                <div class="col-7 city-name status-allBad-level">
+                                    大金
+                                </div>
+                                <div class="col-5 aqi-number">
+                                    22
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+
+    </div>
+
+
+</body>
+
+<script src=""></script>
+
+
+
+</html>
