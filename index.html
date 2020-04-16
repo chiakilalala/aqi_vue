@@ -16,9 +16,9 @@
                 <div class="col-xl-4">
                     <h1 class="main-Title">空氣品質指標 (AQI)</h1>
                     <dic class="citySelect-outer">
-                        <select class="citySelect">
+                        <select class="citySelect" v-model="citySelected" @change="changeCity(citySelected)">
                             <option value="init" disabled="disabled">請選擇地區</option>
-                            <option  value="高雄市">高雄市</option>
+                            <option :value="item" v-for="(item, index) in city" :key="index">{{item}}</option>
                         </select>
                     </dic>
 
@@ -28,7 +28,7 @@
                     <div class="row aqi-wrap no-gutters">
                         <div class="col-md-2  col-6">
                             <div class="status-box status-good-level">
-                                <span>1</span>
+                                <span>0~50</span>
                             </div>
                             <div class="status-caption">良好
 
@@ -36,7 +36,7 @@
                         </div>
                         <div class="col-md-2  col-6">
                             <div class="status-box status-normal-level">
-                                <span>1</span>
+                                <span>51～100</span>
                             </div>
                             <div class="status-caption">普通
 
@@ -44,7 +44,7 @@
                         </div>
                         <div class="col-md-2  col-6">
                             <div class="status-box status-sensitivebad-level">
-                                <span>1</span>
+                                <span>101～150</span>
                             </div>
                             <div class="status-caption">對敏感族群 不健康
 
@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-md-2  col-6">
                             <div class="status-box status-allBad-level">
-                                <span>1</span>
+                                <span>151～200</span>
                             </div>
                             <div class="status-caption">對所有族群 不健康
 
@@ -60,7 +60,7 @@
                         </div>
                         <div class="col-md-2  col-6">
                             <div class="status-box status-server-level">
-                                <span>1</span>
+                                <span>201～300</span>
                             </div>
                             <div class="status-caption ">非常不健康
 
@@ -68,7 +68,7 @@
                         </div>
                         <div class="col-md-2  col-6">
                             <div class="status-box status-kill-level">
-                                <span>1</span>
+                                <span>301～400</span>
                             </div>
                             <div class="status-caption">危害
 
@@ -79,21 +79,21 @@
             </section>
             <!-- 目標地點 -->
             <div class="separate-wrap my-xl-5 mb-md-2 my-5 d-md-flex d-none">
-                <h2 class="main-Title">高雄市</h2>
+                <h2 class="main-Title">{{citySelected}}</h2>
                 <div class="separate-line-wrap">
                     <div class="separate-line"></div>
                 </div>
                 <div class="update-wrap font-weight-bold d-flex align-items-center">
-                    <span>2020-04-14 14:00
-</span><span class="ml-3">update</span>
+                    <span> {{current}}
+                    </span><span class="ml-3">update</span>
                 </div>
             </div>
             <!-- mobile 版本 -->
             <!-- mobole separate -->
             <div class="separate-wrap my-xl-5 my-2 d-md-none d-block text-center">
-                <h2 class="main-Title">高雄市</h2>
+                <h2 class="main-Title">{{citySelected}}</h2>
                 <div class="update-wrap font-weight-bold">
-                    2020-04-14 14:00<span class="ml-3">update</span>
+                    {{current}}<span class="ml-3">update</span>
                 </div>
             </div>
             <!-- data 資料 -->
@@ -101,53 +101,53 @@
                 <div class="col-xl-4 col-md-6">
                     <div class="row no-gutters city-selected ">
                         <div class="col-7 city-name">
-                            大寮
+                            {{selectedData.SiteName}}
                         </div>
-                        <div class="col-5 aqi-number status-normal-level">
-                            89
+                        <div class="col-5 aqi-number " :class="AQIstatus(selectedData.Status)">
+                            {{selectedData.AQI}}
 
                         </div>
                         <div class="col-12 cityData">
                             <ul>
                                 <li class="data-item">
                                     <b>臭氧
-                                </b>
+                                    </b>
                                     <span class="ml-2 h6">O3 (ppb)</span>
-                                    <b class="ml-auto">91</b>
+                                    <b class="ml-auto"> {{selectedData.O3}}</b>
                                 </li>
                                 <li class="data-item">
                                     <b>
-                                    懸浮微粒
-                                </b>
+                                        懸浮微粒
+                                    </b>
                                     <span class="ml-2 h6">PM10 (μg/m³)</span>
-                                    <b class="ml-auto">57</b>
+                                    <b class="ml-auto">{{selectedData.PM10}}</b>
                                 </li>
                                 <li class="data-item">
                                     <b>
                                         細懸浮微粒
-                                </b>
+                                    </b>
                                     <span class="ml-2 h6">PM2.5 (μg/m³)</span>
-                                    <b class="ml-auto">57</b>
+                                    <b class="ml-auto">{{selectedData['PM2.5']}}</b>
                                 </li>
                                 <li class="data-item">
                                     <b>一氧化碳
-                                </b>
+                                    </b>
                                     <span class="ml-2 h6">CO (ppm)</span>
-                                    <b class="ml-auto">57</b>
+                                    <b class="ml-auto">{{selectedData.CO}}</b>
                                 </li>
                                 <li class="data-item">
                                     <b>
-                                    二氧化硫
-                                </b>
+                                        二氧化硫
+                                    </b>
                                     <span class="ml-2 h6">SO2 (ppb)</span>
-                                    <b class="ml-auto">57</b>
+                                    <b class="ml-auto">{{selectedData.SO2}}</b>
                                 </li>
                                 <li class="data-item">
                                     <b>
-                                    二氧化氮
-                                </b>
+                                        二氧化氮
+                                    </b>
                                     <span class="ml-2 h6">NO2 (ppb)</span>
-                                    <b class="ml-auto">57</b>
+                                    <b class="ml-auto">{{selectedData.NO2}}</b>
                                 </li>
                             </ul>
                         </div>
@@ -159,60 +159,18 @@
                 <div class="col-xl-8 col-md-6 mt-md-0 mt-5">
                     <div class="row">
 
-                        <div class="col-xl-6 mb-5">
+                        <div class="col-xl-6 mb-5" v-for="item in filterData" :key="item.SiteName" @click="chickSelectData(item)">
                             <div class="row no-gutters city-items">
-                                <div class="col-7 city-name status-allBad-level">
-                                    大金
+                                <div class="col-7 city-name " :class="AQIstatus(item.Status)">
+                                    {{item.SiteName}}
                                 </div>
                                 <div class="col-5 aqi-number">
-                                    22
+                                    {{item.AQI}}
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-xl-6 mb-5">
-                            <div class="row no-gutters city-items">
-                                <div class="col-7 city-name status-allBad-level">
-                                    大金
-                                </div>
-                                <div class="col-5 aqi-number">
-                                    22
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col-xl-6 mb-5">
-                            <div class="row no-gutters city-items">
-                                <div class="col-7 city-name status-allBad-level">
-                                    大金
-                                </div>
-                                <div class="col-5 aqi-number">
-                                    22
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-6 mb-5">
-                            <div class="row no-gutters city-items">
-                                <div class="col-7 city-name status-allBad-level">
-                                    大金
-                                </div>
-                                <div class="col-5 aqi-number">
-                                    22
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-6 mb-5">
-                            <div class="row no-gutters city-items">
-                                <div class="col-7 city-name status-allBad-level">
-                                    大金
-                                </div>
-                                <div class="col-5 aqi-number">
-                                    22
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -224,8 +182,9 @@
 
 </body>
 
-<script src=""></script>
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<script src="js/app.js">
+</script>
 
 </html>

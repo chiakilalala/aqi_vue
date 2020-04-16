@@ -205,7 +205,8 @@ export default {
     },
     countyChange(countyChange) {
       const vm = this;
-      const countySelectedData = vm.data.filter(item => item.County === countyChange);
+      const countySelectedData = vm.data.filter(item => 
+      item.County === countyChange);
       [vm.siteSelectedData] = countySelectedData;
     },
   },
